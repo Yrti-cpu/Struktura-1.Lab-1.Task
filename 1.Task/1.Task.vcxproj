@@ -129,13 +129,11 @@
   <ItemGroup>
     <ClCompile Include="1.Task.cpp" />
     <ClCompile Include="List.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h" />
-    <ClInclude Include="Menu.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Time.h" />
   </ItemGroup>

@@ -81,74 +81,123 @@ void List::show()
     }
     
 }
-void List::searchInfo(std::string destination, Time &time1, Time &time2)
+void List::searchInfo()
 {
-
-    bool flag = false;
-    Node* current = head;
-    std::string str = "";
-    while (current != nullptr)
-    {
-        if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && time1 <= current->GetDepartureTime() && current->GetDepartureTime() <= time2)
-        {
-            str = current->StrTrainType();
-            std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
-            std::cout << "--------------------------------------------------------------------------------" << std::endl;
-            flag = true;
-        }
-        current = current->GetpNext();
-    }
-    if(!flag)
-        std::cout << "\n\n\nПоездов следующих до " << destination << " в данный временной интервал не найдено" << std::endl;
-}
-void List::searchMin(std::string destination)
-{
-    char train_type = 0;
-    Node::CheckTrainType(train_type);
     system("CLS");
-    bool flag = false;
-    Node* current = head;
-    std::string str = "";
-    switch (train_type)
+    if (!IsEmpty())
     {
-    case 49: str = "скорый"; break;
-    case 50: str = "экспресс"; break;
-    case 51: str = "пассажирский"; break;
-    }
-    bool flag_time = true;  
-    Time min_time;
-    while (current != nullptr)
-    {
-        if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && (current->GetTravelTime() <= min_time || flag_time))
+        SetConsoleCP(1251);
+        std::string destination;
+        short hours, minutes;
+        Node::CheckDestination(destination);
+        std::cout << "Введите нижнюю временную границу(ЧЧ:ММ):\n";
+        std::cin >> hours;
+        std::cin.ignore(1024, ':');
+        std::cin >> minutes;
+        Time t1(true, hours, minutes);
+        std::cout << "Введите верхнюю временную границу(ЧЧ:ММ):\n";
+        std::cin >> hours;
+        std::cin.ignore(1024, ':');
+        std::cin >> minutes;
+        Time t2(true, hours, minutes);
+        if (t1 <= t2)
         {
-            min_time = current->GetTravelTime();
-            flag = true;
-            flag_time = false;
+            system("CLS");
+            std::cout << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
+            std::cout << "--------------------------------------------------------------------------------" << std::endl;
+            bool flag = false;
+            Node* current = head;
+            std::string str = "";
+            while (current != nullptr)
+            {
+                if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && t1 <= current->GetDepartureTime() && current->GetDepartureTime() <= t2)
+                {
+                    str = current->StrTrainType();
+                    std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
+                    std::cout << "--------------------------------------------------------------------------------" << std::endl;
+                    flag = true;
+                }
+                current = current->GetpNext();
+            }
+            if (!flag)
+                std::cout << "\n\n\nПоездов следующих до " << destination << " в данный временной интервал не найдено" << std::endl;
+            
         }
-        current = current->GetpNext();
+        else
+        {
+            std::cout << "Неправильно введен временной интервал\n";
+            return;
+        }
+        
+        SetConsoleCP(866);
     }
-    current = head;
-    if (flag)
+    else
     {
-        std::cout << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
-        std::cout << "--------------------------------------------------------------------------------" << std::endl;
-
+        std::cout << "Список пуст\n";
+    }
+}
+void List::searchMin()
+{
+    system("CLS");
+    if (!IsEmpty())
+    {
+        SetConsoleCP(1251);
+        std::string destination;
+        Node::CheckDestination(destination);
+        char train_type = 0;
+        std::cout << "Чтобы определить поезд, доезжающий до " << destination << " за наименьшее время:" << std::endl;
+        Node::CheckTrainType(train_type);
+        system("CLS");
+        bool flag = false;
+        Node* current = head;
+        std::string str = "";
+        switch (train_type)
+        {
+        case 49: str = "скорый"; break;
+        case 50: str = "экспресс"; break;
+        case 51: str = "пассажирский"; break;
+        }
+        bool flag_time = true;
+        Time min_time;
         while (current != nullptr)
         {
-            if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && current->GetTravelTime() == min_time)
+            if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && (current->GetTravelTime() <= min_time || flag_time))
             {
-               
-                std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
-                std::cout << "--------------------------------------------------------------------------------" << std::endl;
+                min_time = current->GetTravelTime();
+                flag = true;
+                flag_time = false;
             }
             current = current->GetpNext();
         }
+        current = head;
+        if (flag)
+        {
+            std::cout << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
+            std::cout << "--------------------------------------------------------------------------------" << std::endl;
 
-        
+            while (current != nullptr)
+            {
+                if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && current->GetTravelTime() == min_time)
+                {
+
+                    std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
+                    std::cout << "--------------------------------------------------------------------------------" << std::endl;
+                }
+                current = current->GetpNext();
+            }
+
+
+        }
+
+        else
+            std::cout << "Поездов типа " << str << " следующих до " << destination << " не найдено" << std::endl;
+        SetConsoleCP(866);
     }
-        
-    else 
-        std::cout << "Поездов типа " << str << " следующих до " << destination << " не найдено" << std::endl;
+    else
+    {
+        std::cout << "Список пуст\n";
+    }
+    
 }
 void List::UploadData(std::string path)
 {
@@ -189,4 +238,36 @@ void List::UploadData(std::string path)
         system("pause");
     }
     fs.close();
+}
+void List::DownloadData(std::string path)
+{
+    std::ifstream fin;
+    fin.open(path, std::ifstream::binary);
+    if (!fin.is_open())
+    {
+        return;
+    }
+    if (fin.peek() == EOF)
+        return;
+    std::string row;
+    short i = 5;
+    while (!fin.eof())
+    {
+        std::string* result = new std::string[i];
+        short count = 0;
+        row = "";
+        getline(fin, row);
+        std::istringstream input(row);
+        while (!input.eof())
+        {
+            std::string str;
+            input >> str;
+            result[count] = str;
+            count++;
+        }
+        push_back(to_Time(result[4]), to_Time(result[3]), atoi(result[2].c_str()), atoi(result[1].c_str()), result[0]);
+        delete[] result;
+        input.clear();
+    }
+    fin.close();
 }
