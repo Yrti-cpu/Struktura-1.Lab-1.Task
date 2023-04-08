@@ -34,15 +34,25 @@ bool List::IsEmpty()
 }
 void List::pop_back()
 {
-    TimeTable* current = head;
-    while (current->pNext->pNext!= nullptr)
+    if (!IsEmpty())
     {
-        current = current->pNext;
+        TimeTable* current = head;
+        while (current->pNext->pNext != nullptr)
+        {
+            current = current->pNext;
+        }
+        TimeTable* toDelete = current->pNext;
+        current->pNext = current->pNext->pNext;
+        delete toDelete;
+        tail = current;
+        std::cout << "Запись успешно удалена!" << std::endl;
+
     }
-    TimeTable* toDelete = current->pNext;
-    current->pNext = current->pNext->pNext;
-    delete toDelete;
-    tail = current;
+    else
+    {
+        std::cout << "Список пуст!\n";
+
+    }
 }
 void List::show()
 {

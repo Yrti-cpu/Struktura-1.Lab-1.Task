@@ -59,21 +59,6 @@ void ShowData(List& l)
     std::cout << "------------------------------------------------------------------------------------" << std::endl;
     l.show();
 }
-void DeleteData(List& l)
-{
-    system("CLS");
-    if (!l.IsEmpty())
-    {
-        l.pop_back();
-        std::cout << "Запись успешно удалена!" << std::endl;
-
-    }
-    else
-    {
-        std::cout << "Список пуст!\n";
-
-    }
-}
 void SearchData(List& l)
 {
     system("CLS");

@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 
         case 51:
 
-            DeleteData(l1);
+            l1.pop_back();
             system("pause");
             break;
         case 52:
