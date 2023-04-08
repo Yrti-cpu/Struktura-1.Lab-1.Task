@@ -3,7 +3,6 @@
 #include <string>
 
 
-std::ostream& operator<<(std::ostream& os, Time& time);
 class Time
 {
 public:
@@ -20,7 +19,7 @@ public:
     bool operator ==(const Time other);
     bool operator <=(const Time other);
     //перегрузка оператора вывода
-    friend std::ostream& operator<<(std::ostream& os, Time& time);
+    friend std::ostream& operator<<(std::ostream& os, Time time);
     //перевод из пользовательского типа Time в тип string
     friend std::string to_string(const Time &time);
 private:

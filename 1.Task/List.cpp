@@ -271,3 +271,4 @@ void List::DownloadData(std::string path)
     }
     fin.close();
 }
+

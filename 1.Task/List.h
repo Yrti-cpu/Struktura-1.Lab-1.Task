@@ -5,6 +5,7 @@
 #include <sstream>
 #include <fstream>
 
+
 class List
 {
 public:
@@ -14,8 +15,8 @@ public:
     bool IsEmpty();//проверка на пустоту
     void pop_back();//удаление последнего узла
     void show();//вывод в консоль всего списка
-    void searchInfo(std::string destination, Time& time1, Time& time2);//поиск поездов по месту и временнному интервалу 
-    void searchMin(std::string destination);//поиск самомого быстрого поезда по месту и типу
+    void searchInfo();//поиск поездов по месту и временнному интервалу 
+    void searchMin();//поиск самомого быстрого поезда по месту и типу
     void UploadData(std::string path);//выгрузка в файл 
     void DownloadData(std::string path);
 private:

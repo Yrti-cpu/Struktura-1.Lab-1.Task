@@ -49,7 +49,7 @@ bool Time::operator ==(const Time other)
     if (this->GetHour() == other.hours && this->GetMinutes() == other.minutes){ return true; }
     return false;
 }
-std::ostream& operator<<(std::ostream& os, Time& time)
+std::ostream& operator<<(std::ostream& os, Time time)
 {
     if (time.hours < 10) { os << "0"; }
     os << time.hours << ":";
