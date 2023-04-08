@@ -34,6 +34,7 @@ bool List::IsEmpty()
 }
 void List::pop_back()
 {
+    system("CLS");
     if (!IsEmpty())
     {
         Node* current = head;
@@ -56,6 +57,7 @@ void List::pop_back()
 }
 void List::show()
 {
+    system("CLS");
     if (!IsEmpty())
     {
         system("CLS");
@@ -195,7 +197,7 @@ void List::searchMin()
     }
     else
     {
-        std::cout << "Список пуст\n";
+        std::cout << "Список пуст!\n";
     }
     
 }
