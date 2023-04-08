@@ -9,8 +9,8 @@ List::~List()
 {
     while (head != nullptr)
     {
-        TimeTable* temp = head;
-        head = head->pNext;
+        Node* temp = head;
+        head = head->GetpNext();
         delete temp;
     }
 }
@@ -18,13 +18,13 @@ void List::push_back(Time travel_time, Time departure_time, short train_number, 
 {
     if (IsEmpty())
     {
-        head = tail = new TimeTable(travel_time, departure_time, train_number, train_type, destination);
+        head = tail = new Node(travel_time, departure_time, train_number, train_type, destination);
     }
     else
     {
-        TimeTable* current = tail;
-        current->pNext = new TimeTable(travel_time, departure_time, train_number, train_type, destination);
-        tail = current->pNext;
+        Node* current = tail;
+        current->SetpNext(new Node(travel_time, departure_time, train_number, train_type, destination));
+        tail = current->GetpNext();
     }
     
 }
@@ -36,13 +36,13 @@ void List::pop_back()
 {
     if (!IsEmpty())
     {
-        TimeTable* current = head;
-        while (current->pNext->pNext != nullptr)
+        Node* current = head;
+        while (current->GetpNext()->GetpNext() != nullptr)
         {
-            current = current->pNext;
+            current = current->GetpNext();
         }
-        TimeTable* toDelete = current->pNext;
-        current->pNext = current->pNext->pNext;
+        Node* toDelete = current->GetpNext();
+        current->SetpNext(current->GetpNext()->GetpNext());
         delete toDelete;
         tail = current;
         std::cout << "Запись успешно удалена!" << std::endl;
@@ -56,33 +56,47 @@ void List::pop_back()
 }
 void List::show()
 {
-    short count = 1;
-    TimeTable* current = head;
-    std::string str = "";
-    while (current != nullptr)
+    if (!IsEmpty())
     {
-        str = current->GetTraintype();
-        std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->destination << "|" << std::setw(13) << str << "|" << std::setw(13) << current->train_number << "|" << std::setw(15) << current->departure_time << "|" << std::setw(10) << current->travel_time << "|" << std::endl;
+        system("CLS");
+        short count = 1;
+        Node* current = head;
+        std::string str = "";
+        std::cout << "|" << std::setw(3) << "N" << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
         std::cout << "------------------------------------------------------------------------------------" << std::endl;
-        current = current->pNext;
-        count++;
+        while (current != nullptr)
+        {
+            str = current->StrTrainType();
+            std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
+            std::cout << "------------------------------------------------------------------------------------" << std::endl;
+            current = current->GetpNext();
+            count++;
+        }
+
     }
+    else
+    {
+        std::cout << "Список пуст!\n";
+
+    }
+    
 }
 void List::searchInfo(std::string destination, Time &time1, Time &time2)
 {
+
     bool flag = false;
-    TimeTable* current = head;
+    Node* current = head;
     std::string str = "";
     while (current != nullptr)
     {
-        if (!_strcmpi(current->destination.c_str(), destination.c_str()) && time1 <= current->departure_time && current->departure_time <= time2)
+        if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && time1 <= current->GetDepartureTime() && current->GetDepartureTime() <= time2)
         {
-            str = current->GetTraintype();
-            std::cout << "|" << std::setw(17) << current->destination << "|" << std::setw(13) << str << "|" << std::setw(13) << current->train_number << "|" << std::setw(15) << current->departure_time << "|" << std::setw(10) << current->travel_time << "|" << std::endl;
+            str = current->StrTrainType();
+            std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
             std::cout << "--------------------------------------------------------------------------------" << std::endl;
             flag = true;
         }
-        current = current->pNext;
+        current = current->GetpNext();
     }
     if(!flag)
         std::cout << "\n\n\nПоездов следующих до " << destination << " в данный временной интервал не найдено" << std::endl;
@@ -90,10 +104,10 @@ void List::searchInfo(std::string destination, Time &time1, Time &time2)
 void List::searchMin(std::string destination)
 {
     char train_type = 0;
-    CheckTrainType(train_type);
+    Node::CheckTrainType(train_type);
     system("CLS");
     bool flag = false;
-    TimeTable* current = head;
+    Node* current = head;
     std::string str = "";
     switch (train_type)
     {
@@ -105,13 +119,13 @@ void List::searchMin(std::string destination)
     Time min_time;
     while (current != nullptr)
     {
-        if (!_strcmpi(current->destination.c_str(), destination.c_str()) && current->train_type == train_type && (current->travel_time <= min_time || flag_time))
+        if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && (current->GetTravelTime() <= min_time || flag_time))
         {
-            min_time = current->travel_time;
+            min_time = current->GetTravelTime();
             flag = true;
             flag_time = false;
         }
-        current = current->pNext;
+        current = current->GetpNext();
     }
     current = head;
     if (flag)
@@ -121,13 +135,13 @@ void List::searchMin(std::string destination)
 
         while (current != nullptr)
         {
-            if (!_strcmpi(current->destination.c_str(), destination.c_str()) && current->train_type == train_type && current->travel_time == min_time)
+            if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && current->GetTravelTime() == min_time)
             {
                
-                std::cout << "|" << std::setw(17) << current->destination << "|" << std::setw(13) << str << "|" << std::setw(13) << current->train_number << "|" << std::setw(15) << current->departure_time << "|" << std::setw(10) << current->travel_time << "|" << std::endl;
+                std::cout << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
                 std::cout << "--------------------------------------------------------------------------------" << std::endl;
             }
-            current = current->pNext;
+            current = current->GetpNext();
         }
 
         
@@ -141,7 +155,7 @@ void List::UploadData(std::string path)
     if (IsEmpty())
     return;
     SetConsoleCP(1251);
-    TimeTable* current = head;
+    Node* current = head;
     std::string entry = "";
     std::fstream fs;
     fs.exceptions(std::fstream::badbit | std::fstream::failbit);
@@ -153,16 +167,16 @@ void List::UploadData(std::string path)
         {
             if (entry.empty()) 
             {
-                entry = current->destination + " " + std::to_string(current->train_type) + " " + std::to_string(current->train_number) + " " + to_string(current->departure_time) + " " + to_string(current->travel_time);
+                entry = current->GetDestination() + " " + std::to_string(current->GetTrainType()) + " " + std::to_string(current->GetTrainNumber()) + " " + to_string(current->GetDepartureTime()) + " " + to_string(current->GetTravelTime());
                 fs << entry;
             }
             else
             {
-                entry = current->destination + " " + std::to_string(current->train_type) + " " + std::to_string(current->train_number) + " " + to_string(current->departure_time) + " " + to_string(current->travel_time);
+                entry = current->GetDestination() + " " + std::to_string(current->GetTrainType()) + " " + std::to_string(current->GetTrainNumber()) + " " + to_string(current->GetDepartureTime()) + " " + to_string(current->GetTravelTime());
 
                 fs << "\n" << entry;
             }
-            current = current->pNext;
+            current = current->GetpNext();
         }
             
         SetConsoleCP(866);
@@ -175,33 +189,4 @@ void List::UploadData(std::string path)
         system("pause");
     }
     fs.close();
-}
-std::string CheckDestination(std::string& destination)
-{
-    /*std::cout << "Неверно указан пункт назначения, попробуйте еще раз:" << std::endl;
-    while (!(std::cin >> destination));*/ // не подходит, так как при считывании из файла тоже запрашивает ввод с клавиатуры
-    while (destination.empty())
-    {
-        std::cout << "Неверно указан пункт назначения, попробуйте еще раз:" << std::endl;
-        std::cin >> destination;
-    }
-    return destination;
-}
-char CheckTrainType(char& train_type)
-{
-    while (train_type != 49 && train_type != 50 && train_type != 51)
-    {
-        std::cout << "Выберите тип поезда:\n" << "1.скорый\n" << "2.экспресс\n" << "3.пассажирский" << std::endl;
-        train_type = _getch();
-    }
-    return train_type;
-}
-short CheckTrainNumber(short& train_number)
-{
-    while (train_number <= 0)
-    {
-        std::cout << "Неверно указан номер поезда, попробуйте еще раз:" << std::endl;
-        std::cin >> train_number;
-    }
-    return train_number;
 }

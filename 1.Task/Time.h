@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+
+std::ostream& operator<<(std::ostream& os, Time& time);
 class Time
 {
 public:
@@ -25,4 +27,4 @@ private:
     short hours;
     short minutes;
 };
-Time to_Time(std::string str);//перепвод из типа string  в пользовательский Time
+Time to_Time(std::string str);

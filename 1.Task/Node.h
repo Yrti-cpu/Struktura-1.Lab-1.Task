@@ -11,11 +11,14 @@ public:
     static short CheckTrainNumber(short& train_number);
     std::string StrTrainType();//из чара в строку дл€ вывода в консоль
     //геттеры
+    Node* GetpNext() { return pNext; }
     std::string GetDestination() { return destination; }
     short GetTrainNumber() { return train_number; }
     char GetTrainType() { return train_type; }
     Time GetDepartureTime() { return departure_time; }
     Time GetTravelTime() { return travel_time; }
+    //сеттер
+    void SetpNext(Node* pNext) { this->pNext = pNext; }
 private:
     Node* pNext;//указатель на следующий узел данных
     //пол€ данных

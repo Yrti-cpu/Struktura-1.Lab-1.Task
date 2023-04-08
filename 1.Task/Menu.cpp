@@ -49,14 +49,13 @@ void DataAddition(List& l)
 }
 void ShowData(List& l)
 {
-    system("CLS");
+    
     if (l.IsEmpty())
     {
         std::cout << "Список пуст!\n";
         return;
     }
-    std::cout << "|" << std::setw(3) << "N" << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
-    std::cout << "------------------------------------------------------------------------------------" << std::endl;
+    
     l.show();
 }
 void SearchData(List& l)

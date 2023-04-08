@@ -2,6 +2,7 @@
 
 int main(int argc, char* argv[])
 {
+    
     using namespace std;
     setlocale(LC_ALL, "rus");
     string path  = "";

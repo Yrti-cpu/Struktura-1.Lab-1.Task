@@ -1,16 +1,9 @@
 #pragma once
 #include "Node.h"
-#include <iostream>
 #include <iomanip>
 #include <Windows.h>
 #include <sstream>
 #include <fstream>
-
-//функции проверки входных данных
-std::string CheckDestination(std::string& destination);
-char CheckTrainType(char& train_type);
-short CheckTrainNumber(short& train_number);
-
 
 class List
 {
