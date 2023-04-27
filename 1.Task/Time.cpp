@@ -14,6 +14,9 @@ Time::Time(bool state, short hours, short minutes)
             std::cin >> hours;
             std::cin.ignore(1024, ':');
             std::cin >> minutes;
+            std::cout << "Error! Try again\n";
+            std::cin.clear();
+            std::cin.ignore(1024, '\n');
         }
             this->hours = hours;
             this->minutes = minutes;
@@ -21,11 +24,14 @@ Time::Time(bool state, short hours, short minutes)
     }
     else
     {
-        while (hours < 0 || hours >= 505 || minutes < 0 || minutes >= 60)
+        while (hours < 0 || hours >= 505 || minutes < 0 || minutes >= 60 || (minutes == 0 && hours == 0))
         {
             std::cin >> hours;
             std::cin.ignore(1024, ':');
             std::cin >> minutes;
+            std::cout << "Error! Try again\n";
+            std::cin.clear();
+            std::cin.ignore(1024, '\n');
         }
             this->hours = hours;
             this->minutes = minutes;
@@ -51,9 +57,9 @@ bool Time::operator ==(const Time other)
 }
 std::ostream& operator<<(std::ostream& os, Time time)
 {
-    if (time.hours < 10) { os << "0"; }
-    os << time.hours << ":";
-    if (time.minutes < 10) { os << "0"; }
+    if (time.hours < 10) { os << '0'; }
+    os << time.hours << ':';
+    if (time.minutes < 10) { os << '0'; }
     os << time.minutes;
     return os;
 }
