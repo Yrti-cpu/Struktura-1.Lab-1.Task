@@ -15,6 +15,7 @@ public:
     void push_back(Time travel_time, Time departure_time, short train_number, char train_type, std::string destination);//добавление узла в конец списка
     bool IsEmpty();//проверка на пустоту
     void pop_back();//удаление последнего узла
+    friend void PrintList(int count, Node* current, std::string st);//вывод 1 элемента списка
     void show();//вывод в консоль всего списка
     void searchInfo();//поиск поездов по месту и временнному интервалу 
     void searchMin();//поиск самомого быстрого поезда по месту и типу
