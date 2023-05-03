@@ -26,4 +26,4 @@ private:
     short hours;
     short minutes;
 };
-Time to_Time(std::string str);
+Time to_Time(std::string str);//перевод из типа в string в пользовательский тип Time

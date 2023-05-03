@@ -2,6 +2,7 @@
 
 Node::Node(Time travel_time, Time departure_time, short train_number, char train_type, std::string destination, Node* pNext)
 {
+    //проверка входных данных
     this->destination = CheckDestination(destination);
     this->train_type = CheckTrainType(train_type);
     this->train_number = CheckTrainNumber(train_number);

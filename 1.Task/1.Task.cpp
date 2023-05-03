@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
     }
     else
     {
-        cout << "Введите имя файла:\n";//ввод имени файла
+        cout << "Введите имя файла:\n";
         while (!(std::cin >> path));
 
     }
@@ -28,29 +28,29 @@ int main(int argc, char* argv[])
         {
         case 49:
 
-            DataAddition(l1);
+            DataAddition(l1);//добавление записи
             system("pause");
             break;
 
         case 50:
 
-            l1.show();
+            l1.show();//вывод списка
             system("pause");
             break;
 
         case 51:
 
-            l1.pop_back();
+            l1.pop_back();//удаление последней записи
             system("pause");
             break;
         case 52:
 
-            l1.searchInfo();
+            l1.searchInfo();//поиск записей по месту назначения и временому интервалу
             system("pause");
             break;
 
         case 53:
-            l1.searchMin();
+            l1.searchMin();//поиск записи с минимальным временем в пути, типу поезда и месту назначения
             system("pause");
             break;
         case 54:
@@ -86,7 +86,7 @@ void DataAddition(List& l)
     system("CLS");
     SetConsoleCP(1251);
     std::cout << "Введите данные о поезде:" << std::endl;
-    std::string destination;
+    std::string destination = "";
     Node::CheckDestination(destination);
     char train_type = 0;
     Node::CheckTrainType(train_type);
