@@ -61,8 +61,9 @@ void List::pop_back()
     {
         current = current->GetpNext();
     }
-    delete current->GetpNext();//удал€ем последнюю запись
-    current->GetpNext()->SetpNext(nullptr);//указатель pNext бывшей предпоследей записи становитс€ нулевым
+    Node* toDelete = current->GetpNext();
+    current->SetpNext(current->GetpNext()->GetpNext());//указатель pNext бывшей предпоследей записи становитс€ нулевым
+    delete toDelete;//удал€ем последнюю запись
     tail = current;//передвигаем указатель хвоста
     std::cout << "«апись успешно удалена!" << std::endl;
 }
