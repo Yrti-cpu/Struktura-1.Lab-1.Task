@@ -14,8 +14,16 @@ List::~List()
         delete temp;//удаляем указатель
     }
 }
-List::List(const List& l)
+List::List(const List& other)
 {
+    this->head = this->tail = nullptr;
+    Node* current = other.head;
+    while (current != nullptr)
+    {
+        this->push_back(current->GetTravelTime(), current->GetDepartureTime(), current->GetTrainNumber(), current->GetTrainType(), current->GetDestination());
+        current = current->GetpNext();
+    }
+    delete current;
 }
 void List::push_back(Time travel_time, Time departure_time, short train_number, char train_type, std::string destination)
 {
@@ -186,7 +194,6 @@ void List::searchMin()
         if (flag)
         {
             PrintHat();//вывод шапки
-
             while (current != nullptr)
             {
                 if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && current->GetTravelTime() == min_time)
@@ -197,10 +204,7 @@ void List::searchMin()
                 }
                 current = current->GetpNext();
             }
-
-
         }
-
         else
             std::cout << "Поездов типа " << str << " следующих до " << destination << " не найдено" << std::endl;
         SetConsoleCP(866);
@@ -281,9 +285,6 @@ void List::DownloadData(std::string path)
     }
     fin.close();//закрываем файл
 }
-
-
-
 void PrintHat()
 {
     std::cout << "|" << std::setw(3) << "N" << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;

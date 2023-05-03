@@ -11,7 +11,7 @@ class List
 public:
     List();//конструктор списка
     ~List();//деструктор списка
-    List(const List& l);//конструктор копирования
+    List(const List& other);//конструктор копирования
     void push_back(Time travel_time, Time departure_time, short train_number, char train_type, std::string destination);//добавление узла в конец списка
     bool IsEmpty();//проверка на пустоту
     void pop_back();//удаление последнего узла
