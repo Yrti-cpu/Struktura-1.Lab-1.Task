@@ -24,4 +24,4 @@ private:
     Node* head;//голова списка
     Node* tail;//хвост списка
 };
-
+void PrintHat();//вывод шапки

@@ -68,12 +68,11 @@ void List::show()
         Node* current = head;//указатель на голову
         std::string str = "";
         //вывод шапки
-        std::cout << "|" << std::setw(3) << "N" << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
-        std::cout << "------------------------------------------------------------------------------------" << std::endl;
+        PrintHat();
         while (current != nullptr)//пока не конец записей выводим информацию по полям класса Node
         {
             str = current->StrTrainType();
-            std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(14) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
+            std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime()  << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
             std::cout << "------------------------------------------------------------------------------------" << std::endl;
             current = current->GetpNext();//передвигаем указатель на следующую запись
             count++;
@@ -280,3 +279,8 @@ void List::DownloadData(std::string path)
     fin.close();//закрываем файл
 }
 
+void PrintHat()
+{
+    std::cout << "|" << std::setw(3) << "N" << "|" << std::setw(17) << "Пункт назначения" << "|" << std::setw(13) << "Тип поезда" << "|" << std::setw(13) << "Номер поезда" << "|" << std::setw(18) << "Время отправления" << "|" << std::setw(13) << "Время в пути" << "|" << std::endl;
+    std::cout << "------------------------------------------------------------------------------------" << std::endl;
+}
