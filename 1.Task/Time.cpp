@@ -69,7 +69,20 @@ std::string to_string(const Time &time)
 Time to_Time(std::string str)
 {
     Time t1;
-    t1.SetHour(atoi(str.substr(0, 2).c_str()));
-    t1.SetMinutes(atoi(str.substr(3, 2).c_str()));
+    if (str.size() == 3)
+    {
+        t1.SetHour(atoi(str.substr(0, 1).c_str()));
+        t1.SetMinutes(atoi(str.substr(2, 1).c_str()));
+    }
+    else if (str[1] == ':')
+    {
+        t1.SetHour(atoi(str.substr(0, 2).c_str()));
+        t1.SetMinutes(atoi(str.substr(2, 2).c_str()));
+    }
+    else
+    {
+        t1.SetHour(atoi(str.substr(0, 2).c_str()));
+        t1.SetMinutes(atoi(str.substr(3, 2).c_str()));
+    }
     return t1;
 }
