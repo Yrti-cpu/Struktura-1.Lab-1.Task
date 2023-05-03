@@ -58,7 +58,7 @@ void List::pop_back()
 
     }
 }
-void PrintList(int count, Node* current, std::string str)
+void PrintOne(int count, Node* current, std::string str)
 {
     std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
     std::cout << "------------------------------------------------------------------------------------" << std::endl;
@@ -76,7 +76,7 @@ void List::show()
         while (current != nullptr)//пока не конец записей выводим информацию по полям класса Node
         {
             str = current->StrTrainType();
-            PrintList(count, current, str);//вывод 1 элемента списка
+            PrintOne(count, current, str);//вывод 1 элемента списка
             current = current->GetpNext();//передвигаем указатель на следующую запись
             count++;
         }
@@ -122,7 +122,7 @@ void List::searchInfo()
                 if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && t1 <= current->GetDepartureTime() && current->GetDepartureTime() <= t2)
                 {
                     str = current->StrTrainType();
-                    PrintList(count, current, str);//вывод 1 элемента списка
+                    PrintOne(count, current, str);//вывод 1 элемента списка
                     flag = true;
                     count++;
                 }
@@ -192,7 +192,7 @@ void List::searchMin()
                 if (!_strcmpi(current->GetDestination().c_str(), destination.c_str()) && current->GetTrainType() == train_type && current->GetTravelTime() == min_time)
                 {
 
-                    PrintList(count, current, str);//вывод 1 элемента списка
+                    PrintOne(count, current, str);//вывод 1 элемента списка
                     count++;
                 }
                 current = current->GetpNext();
