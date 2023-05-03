@@ -1,6 +1,5 @@
 #include "List.h"
 
-
 List::List()
 {
     head = tail = nullptr;//при инициализации указатели являются нулевыми 
@@ -68,7 +67,7 @@ void List::pop_back()
 }
 void PrintOne(int count, Node* current, std::string str)
 {
-    std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << std::setw(15) << current->GetDepartureTime() << "|" << std::setw(10) << current->GetTravelTime() << "|" << std::endl;
+    std::cout << "|" << std::setw(3) << count << "|" << std::setw(17) << current->GetDestination() << "|" << std::setw(13) << str << "|" << std::setw(13) << current->GetTrainNumber() << "|" << "\t\t" << current->GetDepartureTime() << "|" << "\t      " << current->GetTravelTime() << "|" << std::endl;
     std::cout << "------------------------------------------------------------------------------------" << std::endl;
 }
 void List::show()

@@ -57,10 +57,7 @@ bool Time::operator ==(const Time other)
 }
 std::ostream& operator<<(std::ostream& os, Time time)
 {
-    if (time.hours < 10) { os << '0'; }
-    os << time.hours << ':';
-    if (time.minutes < 10) { os << '0'; }
-    os << time.minutes;
+    os << std::setfill('0') << std::setw(2) << time.hours << ":" << std::setw(2) << time.minutes << std::setfill(' ');
     return os;
 }
 std::string to_string(const Time &time)
