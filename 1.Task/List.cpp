@@ -45,25 +45,26 @@ bool List::IsEmpty()
 void List::pop_back()
 {
     system("CLS");
-    if (!IsEmpty())//если список не пустой
-    {
-        Node* current = head;//создаем указатель на голову
-        while (current->GetpNext()->GetpNext() != nullptr)//доходим до предпоследней записи
-        {
-            current = current->GetpNext();
-        }
-        Node* toDelete = current->GetpNext();//создаем указатель на последний элемент 
-        current->SetpNext(current->GetpNext()->GetpNext());//указатель pNext предпоследей записи €вл€етс€ нулевым
-        delete toDelete;//удал€ем последнюю запись
-        tail = current;//передвигаем указатель хвоста
-        std::cout << "«апись успешно удалена!" << std::endl;
-
-    }
-    else
+    if (IsEmpty())//если список пустой
     {
         std::cout << "—писок пуст!\n";
-
+        return;
     }
+    if (head->GetpNext() == nullptr)
+    {
+        head = tail = nullptr;
+        std::cout << "«апись успешно удалена!" << std::endl;
+        return;
+    }
+    Node* current = head;//создаем указатель на голову
+    while (current->GetpNext()->GetpNext() != nullptr)//доходим до предпоследней записи
+    {
+        current = current->GetpNext();
+    }
+    delete current->GetpNext();//удал€ем последнюю запись
+    current->GetpNext()->SetpNext(nullptr);//указатель pNext бывшей предпоследей записи становитс€ нулевым
+    tail = current;//передвигаем указатель хвоста
+    std::cout << "«апись успешно удалена!" << std::endl;
 }
 void PrintOne(int count, Node* current, std::string str)
 {
@@ -216,6 +217,7 @@ void List::searchMin()
 }
 void List::UploadData(std::string path)
 {
+    remove(path.c_str());//удал€ем старый файл
     if (IsEmpty())//если список пустой, то прерываем работу метода
     return;
     SetConsoleCP(1251);
@@ -225,7 +227,6 @@ void List::UploadData(std::string path)
     fs.exceptions(std::fstream::badbit | std::fstream::failbit);
     try
     {
-        remove(path.c_str());//удал€ем старый файл
         fs.open(path, std::fstream::in | std::fstream::out | std::fstream::app | std::fstream::binary);//создаем одноименный файл на чтение и запись
         while (current != nullptr)//записываем в файл наш список (пол€ отдел€ютс€ пробелом, а записи  - \n
         {

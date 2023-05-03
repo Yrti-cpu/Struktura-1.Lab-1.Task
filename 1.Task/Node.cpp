@@ -11,27 +11,30 @@ Node::Node(Time travel_time, Time departure_time, short train_number, char train
 }
 std::string Node::CheckDestination(std::string& destination)
 {
-    std::cout << "Пункт назначения:" << std::endl;
     while (destination.empty())
     {
+        system("cls");
+        std::cout << "Пункт назначения:" << std::endl;
         std::cin >> destination;
     }
     return destination;
 }
 char Node::CheckTrainType(char& train_type)
 {
-    std::cout << "Выберите тип поезда:\n" << "1.скорый\n" << "2.экспресс\n" << "3.пассажирский" << std::endl;
     while (train_type != 49 && train_type != 50 && train_type != 51)
     {
+        system("cls");
+        std::cout << "Выберите тип поезда:\n" << "1.скорый\n" << "2.экспресс\n" << "3.пассажирский" << std::endl;
         train_type = _getch();
     }
     return train_type;
 }
 short Node::CheckTrainNumber(short& train_number)
 {
-    std::cout << "Введите номер поезда:" << std::endl;
     while (train_number <= 0)
     {
+        system("cls");
+        std::cout << "Введите номер поезда:" << std::endl;
         std::cin >> train_number;
         std::cin.clear();
         std::cin.ignore(1024, '\n');

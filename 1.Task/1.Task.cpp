@@ -93,17 +93,20 @@ void DataAddition(List& l)
     short train_number = 0;
     Node::CheckTrainNumber(train_number);
     short hours, minutes;
+    system("cls");
     std::cout << "Время отправления(ЧЧ:ММ):\n";
     std::cin >> hours;
     std::cin.ignore(1024, ':');
     std::cin >> minutes;
     Time t1(true, hours, minutes);
+    system("cls");
     std::cout << "Время в пути(ЧЧ:ММ):\n";
     std::cin >> hours;
     std::cin.ignore(1024, ':');
     std::cin >> minutes;
     Time t2(false, hours, minutes);
     l.push_back(t2, t1, train_number, train_type, destination);
+    system("cls");
     std::cout << "Запись успешно сохранена!\n";
     SetConsoleCP(866);
 }
