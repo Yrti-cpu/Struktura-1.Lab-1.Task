@@ -138,9 +138,11 @@ void List::searchInfo()
                 current = current->GetpNext();
             }
             if (!flag)
+            {
                 system("CLS");
                 std::cout << "Поездов следующих до " << destination << " в данный временной интервал не найдено" << std::endl;
-            
+            }
+                
         }
         else
         {

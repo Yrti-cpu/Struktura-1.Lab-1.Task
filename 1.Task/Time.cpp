@@ -11,10 +11,10 @@ Time::Time(bool state, short hours, short minutes)
     {
         while (hours < 0 || hours >= 24 || minutes < 0 || minutes >= 60)
         {
+            std::cout << "Error! Try again\n";
             std::cin >> hours;
             std::cin.ignore(1024, ':');
             std::cin >> minutes;
-            std::cout << "Error! Try again\n";
             std::cin.clear();
             std::cin.ignore(1024, '\n');
         }
@@ -26,10 +26,10 @@ Time::Time(bool state, short hours, short minutes)
     {
         while (hours < 0 || hours >= 505 || minutes < 0 || minutes >= 60 || (minutes == 0 && hours == 0))
         {
+            std::cout << "Error! Try again\n";
             std::cin >> hours;
             std::cin.ignore(1024, ':');
             std::cin >> minutes;
-            std::cout << "Error! Try again\n";
             std::cin.clear();
             std::cin.ignore(1024, '\n');
         }
