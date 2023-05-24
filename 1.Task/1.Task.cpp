@@ -87,11 +87,11 @@ void DataAddition(List& l)
     SetConsoleCP(1251);
     std::cout << "Введите данные о поезде:" << std::endl;
     std::string destination = "";
-    Node::CheckDestination(destination);
+    List::CheckDestination(destination);
     char train_type = 0;
-    Node::CheckTrainType(train_type);
+    List::CheckTrainType(train_type);
     short train_number = 0;
-    Node::CheckTrainNumber(train_number);
+    List::CheckTrainNumber(train_number);
     short hours, minutes;
     system("cls");
     std::cout << "Время отправления(ЧЧ:ММ):\n";
